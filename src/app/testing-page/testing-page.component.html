@@ -1,0 +1,36 @@
+<div class="page-content">
+  <div *ngIf="!isTestComplete">
+    <div *ngIf="test">
+      <div *ngIf="currentQuestion">
+        <h1>Qusestion №{{currentQuestion.Number}}</h1>
+        {{currentQuestion.QuestionText}}
+      </div>
+    </div>
+
+
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="currentSelectedAnswer">
+      <mat-radio-button class="example-radio-button" *ngFor="let answer of currentQuestion?.Answers" [value]="answer">
+        {{answer.AnswerText}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <button *ngIf="checkNextQuestion()" mat-raised-button color="primary" (click)="nextQuestion()" [disabled]="!isQuestionSelected()">Next</button>
+    <button *ngIf="!checkNextQuestion()"mat-raised-button color="primary" (click)="finishTest()" [disabled]="!isQuestionSelected()">Finish</button>
+
+    <div *ngIf="result">
+      {{result.Result}}
+    </div>
+  </div>
+
+  <div *ngIf="isTestComplete">
+    <div *ngIf="result">
+      <h1>Congradulations</h1>
+      <h2>Your test score : {{result.Result}}/{{result.MaxTestResults}}</h2>
+      <button mat-raised-button color="primary" [routerLink]="['']" >Back</button>
+    </div>
+  </div>
+</div>
+

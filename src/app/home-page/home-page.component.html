@@ -1,0 +1,39 @@
+<div class="page-content">
+  <div *ngIf="!isUserAuthenticated()">
+    <app-login></app-login>
+  </div>
+  <div *ngIf="isUserAuthenticated()">
+    <h1 class="text-center" style="color:green;">
+      Welcome to the Tetsing System
+    </h1>
+
+    <h1>
+      Select Test
+    </h1>
+
+    <div *ngIf="avaliableTests">
+      <mat-form-field appearance="fill">
+        <mat-label>Test</mat-label>
+        <mat-select (selectionChange)="getTestDescription($event.value)">
+          <mat-option *ngFor="let test of avaliableTests" [value]="test.Id">
+            {{test.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="testDescription">
+      <h2>Test Description</h2>
+      {{testDescription.Description}}
+      <section class="checkbox-margin">
+        <mat-checkbox class="example-margin" [(ngModel)]="checked">I agree to start</mat-checkbox>
+      </section>
+
+      <button class="proceed-button" mat-raised-button color="primary" [routerLink]="['testingPage', testDescription!.Id]" [disabled]="!checked">Proceed</button>
+    </div>
+
+  </div>
+
+
+</div>
+
